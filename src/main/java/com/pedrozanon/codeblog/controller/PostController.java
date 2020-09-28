@@ -2,6 +2,7 @@ package com.pedrozanon.codeblog.controller;
 
 import com.pedrozanon.codeblog.model.Post;
 import com.pedrozanon.codeblog.service.impl.PostServiceImpl;
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,28 @@ public class PostController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String redirectHome() {
+        return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/editPost/{id}", method = RequestMethod.GET)
+    public ModelAndView editPost(@PathVariable("id") Long id) {
+        Post post = postService.findById(id);
+        ModelAndView mv = new ModelAndView("editPost");
+        mv.addObject("post", post);
+        return mv;
+    }
+
+    @RequestMapping(value = "/editPost/{id}", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String saveEditPost(@Valid Post post, @PathVariable("id") Long id, BindingResult result, RedirectAttributes attr) throws Exception{
+
+        logger.info("Método savePost {}", post);
+
+        if(result.hasErrors()) {
+            attr.addFlashAttribute("mensagem", "Inserir campos obrigatorios corretamente");
+            return "redirect:/editPost";
+        }
+        post.setData(LocalDate.now());
+        postService.save(post);
         return "redirect:/posts";
     }
 }
