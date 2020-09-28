@@ -15,7 +15,11 @@
 <header>
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-brand mb-0 h1" style="font-weight: bold;">MyCodeBlog</span>
-        <a href="/newpost" class="btn btn-primary" role="button">Novo Post</a>
+
+        <div>
+            <a href="/newpost" class="btn btn-primary" role="button">Novo Post</a>
+            <a th:href="${ (#mvc.url('PC#editPost').arg(0, post.id)).build()}" class="btn btn-primary" role="button">Editar Post</a>
+        </div>
     </nav>
 </header>
 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>MyCodeBlog</title>
+    <!-- CSS Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Icones do google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1" style="font-weight: bold;">MyCodeBlog</span>
+    </nav>
+</header>
+
+<main>
+    <div class="container" style="width: 60%; padding: 30px;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
+                <li class="breadcrumb-item" aria-current="page"><a href="/posts">Posts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Editar Post</li>
+            </ol>
+        </nav>
+
+
+
+        <div>
+            <th:block th:include="mensagemValidacao"></th:block>
+            <form method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="titulo"  th:text="${post.titulo}">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" name="autor"  th:text="${post.autor}">
+                </div>
+
+                <textarea id="summernote" type="text" class="form-control" name="texto" placeholder="Texto *" th:utext="${post.texto}"></textarea>
+
+                <small class="form-text text-muted">(*) Campos Obrigatorios</small>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;" id="publicar">Publicar</button>
+
+                <a href="/posts" class="btn btn-light" role="button" style="margin-top: 10px;">Cancelar</a>
+            </form>
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+    $('#summernote').summernote({
+        placeholder: 'Texto *',
+        tabSize: 2,
+        height: 300
+    });
+</script>
+
+</body>
+
+
+</html>
