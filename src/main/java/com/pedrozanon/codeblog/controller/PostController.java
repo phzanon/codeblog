@@ -58,4 +58,9 @@ public class PostController {
         postService.save(post);
         return "redirect:/posts";
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String redirectHome() {
+        return "redirect:/posts";
+    }
 }
